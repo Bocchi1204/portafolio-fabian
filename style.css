@@ -33,14 +33,10 @@ body {
     font-weight: 400;
 }
 
-/* ---- two-column layout ---- */
-
 .layout {
     display: flex;
     min-height: 100vh;
 }
-
-/* ---- left sidebar (sticky) ---- */
 
 .sidebar {
     width: var(--sidebar-width);
@@ -92,8 +88,6 @@ body {
     text-decoration-color: var(--text);
 }
 
-/* ---- right content ---- */
-
 .main-content {
     flex: 1;
     min-width: 0;
@@ -113,8 +107,6 @@ body {
     margin-bottom: 2.2rem;
     color: var(--text);
 }
-
-/* ---- projects ---- */
 
 .projects-grid {
     display: grid;
@@ -182,8 +174,6 @@ body {
     color: var(--text);
 }
 
-/* ---- skills ---- */
-
 .skills-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -210,7 +200,7 @@ body {
     padding: 0.18rem 0;
 }
 
-/* ---- CV ---- */
+
 
 .cv-entry {
     margin-bottom: 2rem;
@@ -238,8 +228,6 @@ body {
     max-width: 500px;
 }
 
-/* ---- footer ---- */
-
 .site-footer {
     padding-top: 1rem;
 }
@@ -248,8 +236,6 @@ body {
     font-size: 0.8rem;
     color: var(--text-muted);
 }
-
-/* ---- responsive ---- */
 
 @media (max-width: 900px) {
     .layout {
