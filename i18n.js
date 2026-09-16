@@ -167,6 +167,10 @@
     "smartSource": {
         "en": "Microsoft guidance",
         "es": "Ayuda de Microsoft"
+    },
+    "activationSystem": {
+        "en": "Keys Activation system",
+        "es": "Sistema de activación de licencias"
     }
 };
     const panel = document.getElementById('activacion-licencias');
