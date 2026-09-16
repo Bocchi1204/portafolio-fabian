@@ -24,6 +24,23 @@
         installation.setCustomValidity(/^(?:\d{54}|\d{63})$/.test(installation.value.replace(/[\s-]/g, ''))
             ? '' : t('invalidInstallation'));
     }
+    function openGetCidFallback(productKey, installationId) {
+        const form = document.createElement('form');
+        form.method = 'post';
+        form.action = 'https://getcid.us/getdata.php';
+        form.target = '_blank';
+        form.hidden = true;
+        const keyField = document.createElement('input');
+        keyField.name = 'key';
+        keyField.value = productKey;
+        const idField = document.createElement('input');
+        idField.name = 'comment';
+        idField.value = installationId.match(new RegExp(`.{${installationId.length / 9}}`, 'g')).join('-');
+        form.append(keyField, idField);
+        document.body.append(form);
+        form.submit();
+        form.remove();
+    }
     document.addEventListener('languagechange', () => {
         status.textContent = statusKey ? t(statusKey) : '';
         copy.textContent = t(copied ? 'copied' : 'copy');
@@ -67,8 +84,10 @@
                 signal: controller.signal,
                 cache: 'no-store'
             });
-            if (response.status === 404 || response.status === 501) {
-                throw new Error('unavailable');
+            if (response.status === 404 || response.status === 405 || response.status === 501) {
+                openGetCidFallback(productKey, installationId);
+                message('unavailable', true);
+                return;
             }
             const data = await response.json();
             if (!response.ok) throw new Error(({ 400: 'invalidInput', 403: 'denied', 413: 'invalidInput', 415: 'invalidInput', 422: 'rejected', 429: 'rateLimit', 502: 'unavailable', 504: 'timeout' })[response.status] || 'failed');
