@@ -22,7 +22,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <meta name="theme-color" content="#fefefe">
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,500;0,14..32,600;1,14..32,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/style.css?v=f365c48a277c">
+    <link rel="stylesheet" href="/style.css?v=ab0d288143db">
 </head>
 <body>
     <div class="language-switch" hidden role="group" aria-label="Language" data-i18n-aria-label="language">
@@ -33,8 +33,11 @@
     <div class="layout">
         <aside class="sidebar">
             <img src="/profile.jpg" alt="Fabian" class="sidebar-avatar">
-            <h1 class="sidebar-heading">Fabian Ramirez</h1>
-            <p class="sidebar-text">Independent software developer and Data Science student specializing in the Linux ecosystem, web development, and Progressive Web Apps (PWAs).</p>
+            <div class="portfolio-identity"><h1 class="sidebar-heading">Fabian Ramirez</h1>
+            <p class="sidebar-text">Independent software developer and Data Science student specializing in the Linux ecosystem, web development, and Progressive Web Apps (PWAs).</p></div>
+<div id="activation-intro" class="activation-identity" lang="en">
+<h1 class="sidebar-heading">Keys Activation system</h1>
+<p class="sidebar-text guide-intro" data-i18n="guideIntro">Install Office. Activate your license.</p><button id="guide-jump" type="button" class="guide-jump" data-i18n="jumpForm">Go to activation form</button><ol class="setup-steps"><li><div><h2 data-i18n="downloadTitle">Download Office</h2><p data-i18n="downloadBody">Use the Microsoft download below. This installer is Office Professional Plus 2021 for Windows, in Spanish. Your license must match this edition.</p><a class="office-download" href="https://officecdn.microsoft.com/db/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/media/es-es/ProPlus2021Retail.img"><span data-i18n="downloadLink">Download Office 2021</span></a></div></li><li><div><h2 data-i18n="mountTitle">Mount and install</h2><p data-i18n="mountBody">Right-click ProPlus2021Retail.img and choose Mount. Open the new drive, run Setup.exe and wait for installation to finish.</p></div></li><li><div><h2 data-i18n="keyTitle">Enter your product key</h2><p data-i18n="keyBody">Open Word from Start. In the activation window, enter the product key you received with your purchase and select Activate Office.</p></div></li><li><div><h2 data-i18n="idTitle">Find your installation ID</h2><p data-i18n="idBody">If the wizard offers activation by telephone, select it and choose your country or region. Keep the installation ID shown on screen.</p></div></li><li><div><h2 data-i18n="confirmTitle">Get the confirmation ID</h2><p data-i18n="confirmBody">Enter your product key and installation ID in the activation form on this page, then select Get confirmation ID.</p></div></li><li><div><h2 data-i18n="finishTitle">Complete activation</h2><p data-i18n="finishBody">Return to the Office wizard, enter the confirmation ID in its corresponding groups and continue. In File &gt; Account, check that Office shows Product Activated.</p></div></li></ol><details class="setup-help"><summary data-i18n="smartTitle">Windows blocks the installer?</summary><div class="setup-help-body"><ol class="security-steps"><li data-i18n="sac1">Open Settings &gt; Privacy &amp; security &gt; Windows Security.</li><li data-i18n="sac2">Select App &amp; browser control &gt; Smart App Control settings.</li><li data-i18n="sac3">Choose Off and confirm the Windows prompt.</li></ol><a href="https://support.microsoft.com/en-us/windows/security/threat-malware-protection/smart-app-control-frequently-asked-questions" target="_blank" rel="noopener noreferrer"><span data-i18n="smartSource">Microsoft guidance</span></a></div></details></div>
         </aside>
         <main class="main-content">
             <nav class="tabs" aria-label="Page sections">
@@ -113,7 +116,7 @@
                 </div>
             </section>
             <section id="activacion-licencias" class="tab-panel activation-panel" aria-labelledby="activation-title">
-                                <h2 id="activation-title" class="section-title" data-i18n="activation">License activation</h2>
+                <h2 id="activation-title" class="section-title" data-i18n="activation">License activation</h2>
                 <form id="activation-form" class="activation-form">
                     <div class="activation-field">
                         <label for="product-key" data-i18n="productKey">Product key</label>
@@ -175,6 +178,7 @@
                 tabId = "about";
             }
 
+            document.body.classList.toggle("activation-mode", tabId === "activacion-licencias");
             document.querySelector(".language-switch").hidden = tabId !== "activacion-licencias";
             tabButtons.forEach(function (button) {
                 var isActive = button.dataset.tab === tabId;
@@ -208,9 +212,13 @@
 
         window.addEventListener("popstate", activateTabFromUrl);
         window.addEventListener("hashchange", activateTabFromUrl);
+        document.getElementById("guide-jump").addEventListener("click", function () {
+            document.getElementById("activation-title").scrollIntoView({ behavior: "smooth", block: "start" });
+            document.getElementById("product-key").focus({ preventScroll: true });
+        });
         activateTabFromUrl();
     </script>
-    <script src="/i18n.js?v=59a58fae1792" defer></script>
+    <script src="/i18n.js?v=cd91748b1d07" defer></script>
     <script src="/activation.js?v=caaf46a1be19" defer></script>
 </body>
 </html>

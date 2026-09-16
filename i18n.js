@@ -1,5 +1,9 @@
 (() => {
     const messages = {
+    "jumpForm": {
+        "en": "Go to activation form",
+        "es": "Ir al formulario de activación"
+    },
     "activation": {
         "en": "License activation",
         "es": "Activación de licencias"
@@ -87,6 +91,82 @@
     "rateLimit": {
         "en": "Wait one minute before trying again.",
         "es": "Espera un minuto antes de realizar otra solicitud."
+    },
+    "guideIntro": {
+        "en": "Install Office. Activate your license.",
+        "es": "Instala Office. Activa tu licencia."
+    },
+    "downloadTitle": {
+        "en": "Download Office",
+        "es": "Descarga Office"
+    },
+    "downloadBody": {
+        "en": "Use the Microsoft download below. This installer is Office Professional Plus 2021 for Windows, in Spanish. Your license must match this edition.",
+        "es": "Utiliza la descarga de Microsoft de abajo. Es Office Professional Plus 2021 para Windows, en español. Tu licencia debe corresponder a esta edición."
+    },
+    "downloadLink": {
+        "en": "Download Office 2021",
+        "es": "Descargar Office 2021"
+    },
+    "mountTitle": {
+        "en": "Mount and install",
+        "es": "Monta e instala"
+    },
+    "mountBody": {
+        "en": "Right-click ProPlus2021Retail.img and choose Mount. Open the new drive, run Setup.exe and wait for installation to finish.",
+        "es": "Haz clic derecho en ProPlus2021Retail.img y selecciona Montar. Abre la unidad que aparece, ejecuta Setup.exe y espera a que termine la instalación."
+    },
+    "keyTitle": {
+        "en": "Enter your product key",
+        "es": "Introduce tu clave"
+    },
+    "keyBody": {
+        "en": "Open Word from Start. In the activation window, enter the product key you received with your purchase and select Activate Office.",
+        "es": "Abre Word desde Inicio. En la ventana de activación, introduce la clave que recibiste con tu compra y selecciona Activar Office."
+    },
+    "idTitle": {
+        "en": "Find your installation ID",
+        "es": "Obtén tu ID de instalación"
+    },
+    "idBody": {
+        "en": "If the wizard offers activation by telephone, select it and choose your country or region. Keep the installation ID shown on screen.",
+        "es": "Si el asistente ofrece activación por teléfono, selecciónala y elige tu país o región. Conserva el ID de instalación que aparece en pantalla."
+    },
+    "confirmTitle": {
+        "en": "Get the confirmation ID",
+        "es": "Obtén el ID de confirmación"
+    },
+    "confirmBody": {
+        "en": "Enter your product key and installation ID in the activation form on this page, then select Get confirmation ID.",
+        "es": "Introduce tu clave de producto y tu ID de instalación en el formulario de activación de esta página y selecciona Obtener ID de confirmación."
+    },
+    "finishTitle": {
+        "en": "Complete activation",
+        "es": "Completa la activación"
+    },
+    "finishBody": {
+        "en": "Return to the Office wizard, enter the confirmation ID in its corresponding groups and continue. In File > Account, check that Office shows Product Activated.",
+        "es": "Vuelve al asistente de Office, introduce el ID de confirmación en los grupos correspondientes y continúa. En Archivo > Cuenta, comprueba que Office indique Producto activado."
+    },
+    "smartTitle": {
+        "en": "Windows blocks the installer?",
+        "es": "¿Windows bloquea el instalador?"
+    },
+    "sac1": {
+        "en": "Open Settings > Privacy & security > Windows Security.",
+        "es": "Abre Configuración > Privacidad y seguridad > Seguridad de Windows."
+    },
+    "sac2": {
+        "en": "Select App & browser control > Smart App Control settings.",
+        "es": "Selecciona Control de aplicaciones y exploradores > Configuración del control inteligente de aplicaciones."
+    },
+    "sac3": {
+        "en": "Choose Off and confirm the Windows prompt.",
+        "es": "Elige Desactivado y confirma el aviso de Windows."
+    },
+    "smartSource": {
+        "en": "Microsoft guidance",
+        "es": "Ayuda de Microsoft"
     }
 };
     const panel = document.getElementById('activacion-licencias');
@@ -95,6 +175,7 @@
     function setLanguage(next) {
         language = next === 'es' ? 'es' : 'en';
         panel.lang = language;
+        document.getElementById("activation-intro").lang = language;
         document.querySelectorAll('[data-i18n]').forEach(element => {
             element.textContent = t(element.dataset.i18n);
         });

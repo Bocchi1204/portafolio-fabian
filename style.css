@@ -577,3 +577,36 @@ body {
 }
 
 .language-switch[hidden] { display: none; }
+
+.activation-identity { display: none; }
+.activation-mode .portfolio-identity { display: none; }
+.activation-mode .activation-identity { display: block; }
+.activation-mode .sidebar { position: static; height: auto; justify-content: flex-start; }
+.activation-mode { --sidebar-width: 44%; }
+.activation-identity .sidebar-heading { max-width: 360px; margin-bottom: 0.65rem; }
+.guide-intro { margin-bottom: 2rem; }
+.setup-steps { list-style: none; counter-reset: setup; display: grid; gap: 1.6rem; }
+.setup-steps > li { counter-increment: setup; display: grid; grid-template-columns: 1.65rem 1fr; gap: 0.75rem; }
+.setup-steps > li::before { content: counter(setup, decimal-leading-zero); font-size: 0.75rem; color: var(--text-muted); padding-top: 0.2rem; font-variant-numeric: tabular-nums; }
+.setup-steps h2 { font-size: 0.95rem; font-weight: 500; margin-bottom: 0.4rem; line-height: 1.5; }
+.setup-steps p, .setup-help-body { font-size: 0.875rem; line-height: 1.75; color: var(--text-secondary); }
+.office-download { display: inline-flex; margin-top: 0.8rem; padding: 0.55rem 0.9rem; border: 1px solid var(--border); border-radius: 7px; color: var(--text); font-size: 0.8rem; font-weight: 500; text-decoration: none; background: #f4f3f1; }
+.office-download:hover { background: #efedea; }
+.setup-help { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-top: 2rem; }
+.setup-help summary { padding: 1rem 0; cursor: pointer; font-size: 0.85rem; font-weight: 500; }
+.setup-help-body { padding-bottom: 1.2rem; }
+.setup-help-body p { margin-bottom: 0.85rem; }
+.security-steps { padding-left: 1.2rem; margin-bottom: 1rem; }
+.security-steps li + li { margin-top: 0.65rem; }
+.setup-help-body a { color: var(--text); text-underline-offset: 3px; }
+.security-note { border-left: 2px solid var(--border); padding-left: 0.9rem; }
+.office-download:focus-visible, .setup-help summary:focus-visible { outline: 2px solid var(--text); outline-offset: 4px; }
+@media (min-width: 901px) {
+    .activation-mode .main-content { position: sticky; top: 0; align-self: flex-start; min-height: 100vh; }
+}
+
+.guide-jump { display: none; }
+@media (max-width: 900px) {
+    .guide-jump { display: inline-block; background: transparent; border: 0; font: inherit; font-size: 0.85rem; color: var(--text); text-decoration: underline; text-underline-offset: 4px; margin: -0.75rem 0 1.5rem; cursor: pointer; }
+    .guide-jump:focus-visible { outline: 2px solid var(--text); outline-offset: 4px; }
+}
