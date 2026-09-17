@@ -1,6 +1,7 @@
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
+import { isIP } from 'node:net';
 import { requestConfirmation } from './server/activation.mjs';
 
 const port = Number(process.env.PORT || 4181);
@@ -22,19 +23,33 @@ cleanup.unref();
 createServer(async (req, res) => {
     const reply = (status, body) => {
         res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8',
-            'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' });
+            'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff',
+            ...(req.headers.origin === publicOrigin ? {
+                'Access-Control-Allow-Origin': publicOrigin, Vary: 'Origin' } : {}) });
         res.end(JSON.stringify(body));
     };
     let url;
     try { url = new URL(req.url, publicOrigin); }
     catch { return reply(400, { error: 'Dirección no válida.' }); }
     if (url.pathname === '/api/activate') {
+        if (req.method === 'OPTIONS') {
+            if (req.headers.origin !== publicOrigin) return reply(403, { error: 'Origen no permitido.' });
+            res.writeHead(204, { 'Access-Control-Allow-Origin': publicOrigin,
+                'Access-Control-Allow-Methods': 'POST',
+                'Access-Control-Allow-Headers': 'Content-Type',
+                'Access-Control-Max-Age': '600', Vary: 'Origin' });
+            return res.end();
+        }
         if (req.method !== 'POST') return reply(405, { error: 'Método no permitido.' });
         if (req.headers.origin !== publicOrigin) return reply(403, { error: 'Origen no permitido.' });
         if (!(req.headers['content-type'] || '').startsWith('application/json')) {
             return reply(415, { error: 'Formato no permitido.' });
         }
-        const ip = req.socket.remoteAddress;
+        const forwardedIp = req.headers['x-forwarded-for'];
+        const proxyIp = typeof forwardedIp === 'string' ? forwardedIp.split(',').at(-1).trim() : '';
+        const ip = isIP(proxyIp) &&
+            ['127.0.0.1', '::1', '::ffff:127.0.0.1'].includes(req.socket.remoteAddress)
+            ? proxyIp : req.socket.remoteAddress;
         const now = Date.now();
         const entry = requests.get(ip);
         if (inFlight.has(ip) || (entry && entry.until > now && entry.count >= 3)) {
@@ -73,5 +88,5 @@ createServer(async (req, res) => {
         res.end(req.method === 'HEAD' ? undefined : content);
     } catch { reply(404, { error: 'No encontrado.' }); }
 }).listen(port, process.env.HOST || '127.0.0.1', () => {
-    console.log(`Vista previa disponible en ${publicOrigin}/activacion`);
+    console.log(`Servidor local disponible en http://127.0.0.1:${port}/api/activate`);
 });
